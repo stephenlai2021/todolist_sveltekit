@@ -8,7 +8,7 @@
 
 		await supabase
 			.from('todolist')
-			.update({ editing: isEditing })
+			.update({ editing: isEditing, content: todo.content })
 			.eq('id', i+1);
 	};
 
