@@ -3,6 +3,9 @@
 	import { todos, textInput } from '$lib/stores/todoListStore';
 	import Todo from '$lib/components/Todo.svelte';
 	import AddIcon from '$lib/components/icons/AddIcon.svelte';
+	import LangIcon from '$lib/components/icons/LangIcon.svelte';
+	import MoonIcon from '$lib/components/icons/MoonIcon.svelte';
+	import SunIcon from '$lib/components/icons/SunIcon.svelte';
 
 	export let data;
 	const { todolist } = data;
@@ -30,15 +33,17 @@
 </svelte:head>
 
 <div class="todoInput">
-	<h2 class="title">ToDo List</h2>
+	<div class="header">
+		<h2 class="title">ToDo List</h2>
+		<div class="utils">
+			<LangIcon />
+			<SunIcon />
+		</div>
+	</div>
 	<p>Enter your ToDo here</p>
 	<div class="inputBox">
-		<input
-			type="text"
-			class="text-input"
-			bind:value={$textInput}
-		/>
-			<!-- placeholder="Enter your todo here" -->
+		<input type="text" class="text-input" bind:value={$textInput} />
+		<!-- placeholder="Enter your todo here" -->
 		<button class="btnAdd" on:click={addToDo}>
 			<AddIcon />
 		</button>
@@ -50,16 +55,23 @@
 {/each}
 
 <style>
-	p {
+	.utils {
+		margin-left: auto;
+	}
+
+	.header {
 		/* border: 1px solid; */
+		display: flex;
+	}
+	p {
 		padding-left: 5px;
 	}
 	.text-input {
 		width: 100%;
-		border: 1px solid white;
+		/* border: 1px solid white; */
 		padding-left: 5px;
 	}
-	
+
 	.inputBox {
 		width: 100%;
 		display: flex;
@@ -69,6 +81,8 @@
 	.title {
 		text-align: center;
 		margin-bottom: 50px;
+		width: calc(100% - 70px);
+		/* border: 1px solid;; */
 	}
 
 	.todoInput {
