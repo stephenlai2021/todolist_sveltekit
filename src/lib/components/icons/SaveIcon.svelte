@@ -8,7 +8,7 @@
 	fill="white"
 	viewBox="0 0 24 24"
 	stroke-width="1.5"
-	stroke="currentColor"
+	stroke="gray"
 	class="w-6 h-6"
   width={width}
   height={height}

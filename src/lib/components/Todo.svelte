@@ -21,14 +21,14 @@
 	};
 
 	const deleteTodo = async (item) => {
-		$todos = $todos.filter((todo) => todo.id !== item.id);
-		await supabase.from('todolist').delete().eq('id', item.id);
+		let text = 'Are  you sure to delete this todo ?';
+		if (confirm(text) == true) {
+			$todos = $todos.filter((todo) => todo.id !== item.id);
+			await supabase.from('todolist').delete().eq('id', item.id);
+		} else {
+			return
+		}
 	};
-
-	// const checkItem = async (todo) => {
-	// 	if (todo.checked) await supabase.from('todolist').update({ checked: true }).eq('id', todo.id);
-	// 	if (!todo.checked) await supabase.from('todolist').update({ checked: false }).eq('id', todo.id);
-	// };
 
 	const setCheckedTrue = async (id) => {
 		await supabase.from('todolist').update({ checked: true }).eq('id', todo.id);
@@ -53,7 +53,9 @@
 		<input type="text" class="edit-inputBox" bind:value={todo.content} />
 	{:else}
 		<input type="checkbox" class="checkbox" bind:checked={todo.checked} />
-		<h4 class="todoText" style:text-decoration={todo.checked ? "line-through": ""}>{todo.content}</h4>
+		<h4 class="todoText" style:text-decoration={todo.checked ? 'line-through' : ''}>
+			{todo.content}
+		</h4>
 	{/if}
 	<div class="btnToggle">
 		{#if todo.editing}
