@@ -39,11 +39,12 @@
 	};
 
 	$: if (todo.checked) {
-		console.log(`id: ${todo.id}, checked: true`);
+		// console.log(`id: ${todo.id}, checked: true`);
 		setCheckedTrue(todo.id);
 	}
+
 	$: if (!todo.checked) {
-		console.log(`id: ${todo.id}, checked: false`);
+		// console.log(`id: ${todo.id}, checked: false`);
 		setCheckedFalse(todo.id);
 	}
 </script>
