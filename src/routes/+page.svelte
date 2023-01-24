@@ -8,7 +8,7 @@
 	// $: ({ todolist } = data)
 
 	$todos = todolist;
-
+	
 	const addToDo = async () => {
 		const todo = {
 			content: $textInput,
@@ -17,9 +17,10 @@
 			id: crypto.randomUUID(),
 			created_at: new Date().toLocaleDateString()
 		};
-
-		await supabase.from('todolist').insert([todo]);
-
+		
+		// await supabase.from('todolist').insert([todo]);
+		await supabase.from('todolist').insert([{ content: $textInput }]);
+		
 		$todos = [...$todos, todo];
 
 		$textInput = '';

@@ -3,19 +3,46 @@
 	import supabase from '$lib/supabase/config';
 	export let todo, i;
 
-	const setEditing = async (i, isEditing) => {
-		$todos[i].editing = isEditing;
+	const saveTodo = async (todo, i) => {
+		$todos[i].editing = false;
 
 		await supabase
-			.from('todolist')
-			.update({ editing: isEditing, content: todo.content })
-			.eq('id', i+1);
+		.from('todolist')
+		.update({ editing: false, content: todo.content })
+		.eq('id', todo.id);
+	};
+	
+	const editTodo = async () => {
+		$todos[i].editing = true;
 	};
 
-	const deleteTodo = async (id) => {
-		await supabase.from('todolist').delete().eq('id', id);
-		$todos = $todos.filter((todo) => todo.id !== id);
+	const deleteTodo = async (item) => {
+		$todos = $todos.filter((todo) => todo.id !== item.id);
+		await supabase.from('todolist').delete().eq('id', item.id);
 	};
+
+	const setCheckedTrue = async (id) => {
+		await supabase
+		.from('todolist')
+		.update({ checked: true })
+		.eq('id', todo.id);
+	}
+
+	const setCheckedFalse = async (id) => {
+		await supabase
+		.from('todolist')
+		.update({ checked: false })
+		.eq('id', todo.id);
+	}
+
+	$: if (todo.checked) {
+		console.log(`id: ${todo.id}, checked: true`)
+		setCheckedTrue(todo.id)
+	}
+	$: if (!todo.checked) {
+		console.log(`id: ${todo.id}, checked: false`)
+		setCheckedFalse(todo.id)		
+	}
 </script>
 
 <div class="todolist">
@@ -27,11 +54,11 @@
 	{/if}
 	<div class="btnToggle">
 		{#if todo.editing}
-			<button on:click={() => setEditing(i, false)}>Save</button>
+			<button on:click={() => saveTodo(todo, i)}>Save</button>
 		{:else}
-			<button on:click={() => setEditing(i, true)}>Edit</button>
+			<button on:click={() => editTodo(todo, i)}>Edit</button>
 		{/if}
-		<button on:click={() => deleteTodo(todo.id)}>Delete</button>
+		<button on:click={() => deleteTodo(todo)}>Delete</button>
 	</div>
 </div>
 
