@@ -25,6 +25,7 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.4.1",
-		"dotenv": "^16.0.3"
+		"dotenv": "^16.0.3",
+		"sveltekit-i18n": "^2.2.2"
 	}
 }

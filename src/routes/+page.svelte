@@ -1,6 +1,7 @@
 <script>
 	import supabase from '$lib/supabase/config';
 	import { todos, textInput } from '$lib/stores/todoListStore';
+	import { t, locales, locale } from '$lib/i18n/translations';
 	import Todo from '$lib/components/Todo.svelte';
 	import AddIcon from '$lib/components/icons/AddIcon.svelte';
 	import LangIcon from '$lib/components/icons/LangIcon.svelte';
@@ -34,16 +35,21 @@
 
 <div class="todoInput">
 	<div class="header">
-		<h2 class="title">ToDo List</h2>
+		<h2 class="title">{$t('common.title')}</h2>
 		<div class="utils">
-			<LangIcon />
+			<!-- <LangIcon /> -->
+			{#if $locale === 'en'}
+				<span class="menu-item" on:keydown on:click={() => ($locale = 'zh-TW')}>CHN/中文</span>
+			{/if}
+			{#if $locale === 'zh-TW'}
+				<span class="menu-item" on:keydown on:click={() => ($locale = 'en')}>英文/ENG</span>
+			{/if}
 			<SunIcon />
 		</div>
 	</div>
-	<p>Enter your ToDo here</p>
+	<p class="description">{$t('common.description')}</p>
 	<div class="inputBox">
 		<input type="text" class="text-input" bind:value={$textInput} />
-		<!-- placeholder="Enter your todo here" -->
 		<button class="btnAdd" on:click={addToDo}>
 			<AddIcon />
 		</button>
@@ -55,17 +61,26 @@
 {/each}
 
 <style>
+	.menu-item {
+		/* border: 1px solid; */
+		cursor: pointer;
+	}
+
 	.utils {
 		margin-left: auto;
+		display: flex;
 	}
 
 	.header {
 		/* border: 1px solid; */
 		display: flex;
+		height: 78px;
 	}
+
 	p {
 		padding-left: 5px;
 	}
+
 	.text-input {
 		width: 100%;
 		/* border: 1px solid white; */
@@ -79,10 +94,14 @@
 	}
 
 	.title {
-		text-align: center;
+		/* text-align: center; */
 		margin-bottom: 50px;
-		width: calc(100% - 70px);
+		width: calc(100% - 110px);
 		/* border: 1px solid;; */
+	}
+
+	.description {
+		height: 21px;
 	}
 
 	.todoInput {

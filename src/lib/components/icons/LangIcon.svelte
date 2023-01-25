@@ -1,6 +1,13 @@
 <script>
-  export let width = '24' 
-  export let height = '24' 
+	import { t, locales, locale } from '$lib/i18n/translations';
+
+	export let width = '24';
+	export let height = '24';
+
+	const handleLocale = () => {
+		if ($locale === 'en') $locale = 'zh-TW'
+		if ($locale === 'zh-TW') $locale = 'en'
+	};
 </script>
 
 <svg
@@ -10,9 +17,11 @@
 	stroke-width="1.5"
 	stroke="white"
 	class="w-6 h-6"
-  width={width}
-  height={height}
->
+	{width}
+	{height}
+	>
+	<!-- on:keydown
+	on:click={handleLocale} -->
 	<path
 		stroke-linecap="round"
 		stroke-linejoin="round"

@@ -169,6 +169,9 @@ main {
 }
 
 button {
-	border: none;
-	
+	border: none;	
+}
+
+svg {
+	cursor: pointer;
 }
